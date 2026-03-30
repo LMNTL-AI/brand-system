@@ -1,10 +1,10 @@
-# Contributing to @mission-critical-saas/brand-system
+# Contributing to @lmntl-ai/brand-system
 
 ## Development Setup
 
 ```bash
 # Clone the repo
-git clone https://github.com/Mission-Critical-SaaS/brand-system.git
+git clone https://github.com/LMNTL-AI/brand-system.git
 cd brand-system
 
 # Install dependencies
@@ -48,7 +48,7 @@ Releases are managed via GitHub:
 
 ### 1. Draft Release
 - Release Drafter automatically creates/updates a draft release as PRs are merged
-- Review the draft at: https://github.com/Mission-Critical-SaaS/brand-system/releases
+- Review the draft at: https://github.com/LMNTL-AI/brand-system/releases
 
 ### 2. Publish Release
 ```bash

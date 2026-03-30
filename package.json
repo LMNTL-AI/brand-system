@@ -1,6 +1,6 @@
 {
-  "name": "@mission-critical-saas/brand-system",
-  "version": "1.4.1",
+  "name": "@lmntl-ai/brand-system",
+  "version": "1.4.2",
   "description": "LMNTL Brand Design System - CSS tokens, React components, and Tailwind preset",
   "type": "module",
   "main": "./dist/index.js",
@@ -78,7 +78,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Mission-Critical-SaaS/brand-system.git"
+    "url": "https://github.com/LMNTL-AI/brand-system.git"
   },
   "keywords": [
     "mcs",
