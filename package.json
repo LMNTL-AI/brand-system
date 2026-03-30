@@ -1,6 +1,6 @@
 {
   "name": "@lmntl-ai/brand-system",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "LMNTL Brand Design System - CSS tokens, React components, and Tailwind preset",
   "type": "module",
   "main": "./dist/index.js",
