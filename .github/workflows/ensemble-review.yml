@@ -1,0 +1,46 @@
+name: ensemble-review
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  ensemble-review:
+    name: ensemble-review
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify package exports
+        run: |
+          # Ensure all exported entry points exist after build
+          node -e "
+            const pkg = require('./package.json');
+            const fs = require('fs');
+            const exports = pkg.exports || {};
+            let ok = true;
+            for (const [key, val] of Object.entries(exports)) {
+              const paths = typeof val === 'string' ? [val] : Object.values(val);
+              for (const p of paths) {
+                if (!fs.existsSync(p)) {
+                  console.error('Missing export:', key, '->', p);
+                  ok = false;
+                }
+              }
+            }
+            if (!ok) process.exit(1);
+            console.log('All package exports verified.');
+          "
