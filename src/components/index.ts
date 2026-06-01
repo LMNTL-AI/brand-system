@@ -7,6 +7,26 @@ export type { TrustBadgesProps, TrustBadgeType } from './TrustBadges';
 export { Tooltip, TooltipHeader, TooltipDetail } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
 
+// Ecosystem-narrative components ("System of Record × Operating Intelligence")
+export {
+  EcosystemStack,
+  OldWayNewWay,
+  EcosystemStatusChip,
+  EcosystemTrustBadge,
+} from './ecosystem';
+export type {
+  EcosystemStackProps,
+  EcosystemStackItem,
+  OldWayNewWayProps,
+  ComparisonRow,
+  EcosystemStatusChipProps,
+  EcosystemStatus,
+  EcosystemTrustBadgeProps,
+  EcosystemTrustBadgeType,
+  EcosystemTrustBadgeSize,
+  EcosystemTrustBadgeVariant,
+} from './ecosystem';
+
 // Data Table Components
 export {
   DataTable,

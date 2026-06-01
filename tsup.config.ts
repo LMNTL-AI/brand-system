@@ -8,6 +8,7 @@ export default defineConfig({
     'icons/minute7/index': 'src/icons/minute7/index.ts',
     'icons/lmntl/index': 'src/icons/lmntl/index.ts',
     'icons/mcs/index': 'src/icons/mcs/index.ts',
+    'icons/ecosystem/index': 'src/icons/ecosystem/index.ts',
     'components/index': 'src/components/index.ts',
     'tailwind-preset': 'src/tailwind-preset.ts',
   },

@@ -1,0 +1,145 @@
+/**
+ * Ecosystem Narrative Tokens — "System of Record × Operating Intelligence"
+ *
+ * These tokens distinguish the *operating layer* (GoodHelp Operating Intelligence)
+ * from the *systems of record* (TimeTrust, LMNTL GL) while staying inside the
+ * parent-brand palette. They do NOT redefine any existing `--brand-*` token, so
+ * they layer cleanly on top of brand-tokens.css and the two-pillar brand house
+ * (marketing-site #406) without clashing.
+ *
+ * Palette rationale (kept visually consistent with goodhelp-ai/ghfe#839):
+ *   - Operating layer   → brand purple (the lmntl brand primary: #7C3AED)
+ *   - Systems of record → teal         (truth / ledger: #0F766E)
+ *   - Approval gate     → amber        (human-in-the-loop sign-off: #B45309)
+ *
+ * Usage:
+ *   1. Import once at the app entry, AFTER brand-tokens.css:
+ *        @lmntl-ai/brand-system/tokens/css         (brand-tokens.css)
+ *        @lmntl-ai/brand-system/tokens/ecosystem-css
+ *   2. Use var(--brand-eco-*) inside ecosystem components.
+ *   3. Add data-theme="dark" (or .dark) on an ancestor for the dark variant.
+ *
+ * Every value is keyed off the shared neutral scale so the operating layer reads
+ * as "GoodHelp on top of the parent brand", not a fifth brand.
+ */
+
+:root {
+  /* ----------------------------------------------------------------------
+     OPERATING LAYER — GoodHelp Operating Intelligence (purple)
+     Reuses the parent-brand purple so it never drifts from the brand house.
+     ---------------------------------------------------------------------- */
+  --brand-eco-operating: #7c3aed;
+  --brand-eco-operating-strong: #6d28d9;
+  --brand-eco-operating-fg: #ffffff;
+  --brand-eco-operating-bg: #f5f3ff;
+  --brand-eco-operating-border: #ddd6fe;
+
+  /* ----------------------------------------------------------------------
+     SYSTEM OF RECORD — TimeTrust · LMNTL GL (teal = source of truth)
+     A distinct, calmer hue so the "truth" base layer reads as foundational,
+     not as another product brand. Stays in the cool half of the palette.
+     ---------------------------------------------------------------------- */
+  --brand-eco-sor: #0f766e;
+  --brand-eco-sor-strong: #115e59;
+  --brand-eco-sor-fg: #ffffff;
+  --brand-eco-sor-bg: #f0fdfa;
+  --brand-eco-sor-border: #99f6e4;
+
+  /* ----------------------------------------------------------------------
+     APPROVAL GATE — gated/proposed actions (amber = human-in-the-loop)
+     ---------------------------------------------------------------------- */
+  --brand-eco-gate: #b45309;
+  --brand-eco-gate-strong: #92400e;
+  --brand-eco-gate-fg: #ffffff;
+  --brand-eco-gate-bg: #fffbeb;
+  --brand-eco-gate-border: #fde68a;
+
+  /* ----------------------------------------------------------------------
+     SURFACES / TEXT — keyed to the shared neutral scale (brand-tokens.css)
+     Declared with fallbacks so ecosystem components render correctly even if
+     ecosystem-tokens.css is loaded without brand-tokens.css.
+     ---------------------------------------------------------------------- */
+  --brand-eco-surface: #ffffff;
+  --brand-eco-surface-muted: var(--brand-neutral-50, #f8fafc);
+  --brand-eco-text: var(--brand-neutral-900, #0f172a);
+  --brand-eco-text-muted: var(--brand-neutral-600, #475569);
+  --brand-eco-border: var(--brand-neutral-200, #e2e8f0);
+
+  /* Old-way / new-way comparison accents */
+  --brand-eco-old: var(--brand-neutral-500, #64748b);
+  --brand-eco-old-bg: var(--brand-neutral-50, #f8fafc);
+  --brand-eco-new: var(--brand-eco-operating);
+  --brand-eco-new-bg: var(--brand-eco-operating-bg);
+}
+
+/* ==========================================================================
+   DARK MODE
+   Activated by data-theme="dark" or a .dark ancestor. Hues are lightened for
+   contrast on dark surfaces; surfaces drop to the deep neutral scale.
+   ========================================================================== */
+
+[data-theme="dark"],
+.dark {
+  --brand-eco-operating: #a78bfa;
+  --brand-eco-operating-strong: #c4b5fd;
+  --brand-eco-operating-fg: #1e1b4b;
+  --brand-eco-operating-bg: rgba(124, 58, 237, 0.16);
+  --brand-eco-operating-border: #7c3aed;
+
+  --brand-eco-sor: #2dd4bf;
+  --brand-eco-sor-strong: #5eead4;
+  --brand-eco-sor-fg: #042f2e;
+  --brand-eco-sor-bg: rgba(13, 148, 136, 0.16);
+  --brand-eco-sor-border: #0f766e;
+
+  --brand-eco-gate: #fbbf24;
+  --brand-eco-gate-strong: #fcd34d;
+  --brand-eco-gate-fg: #451a03;
+  --brand-eco-gate-bg: rgba(180, 83, 9, 0.18);
+  --brand-eco-gate-border: #b45309;
+
+  --brand-eco-surface: var(--brand-neutral-900, #0f172a);
+  --brand-eco-surface-muted: var(--brand-neutral-800, #1e293b);
+  --brand-eco-text: var(--brand-neutral-50, #f8fafc);
+  --brand-eco-text-muted: var(--brand-neutral-300, #cbd5e1);
+  --brand-eco-border: var(--brand-neutral-700, #334155);
+
+  --brand-eco-old: var(--brand-neutral-400, #94a3b8);
+  --brand-eco-old-bg: var(--brand-neutral-800, #1e293b);
+  --brand-eco-new: var(--brand-eco-operating);
+  --brand-eco-new-bg: var(--brand-eco-operating-bg);
+}
+
+/* Respect users who prefer dark when the app opts into system theming. */
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    --brand-eco-operating: #a78bfa;
+    --brand-eco-operating-strong: #c4b5fd;
+    --brand-eco-operating-fg: #1e1b4b;
+    --brand-eco-operating-bg: rgba(124, 58, 237, 0.16);
+    --brand-eco-operating-border: #7c3aed;
+
+    --brand-eco-sor: #2dd4bf;
+    --brand-eco-sor-strong: #5eead4;
+    --brand-eco-sor-fg: #042f2e;
+    --brand-eco-sor-bg: rgba(13, 148, 136, 0.16);
+    --brand-eco-sor-border: #0f766e;
+
+    --brand-eco-gate: #fbbf24;
+    --brand-eco-gate-strong: #fcd34d;
+    --brand-eco-gate-fg: #451a03;
+    --brand-eco-gate-bg: rgba(180, 83, 9, 0.18);
+    --brand-eco-gate-border: #b45309;
+
+    --brand-eco-surface: var(--brand-neutral-900, #0f172a);
+    --brand-eco-surface-muted: var(--brand-neutral-800, #1e293b);
+    --brand-eco-text: var(--brand-neutral-50, #f8fafc);
+    --brand-eco-text-muted: var(--brand-neutral-300, #cbd5e1);
+    --brand-eco-border: var(--brand-neutral-700, #334155);
+
+    --brand-eco-old: var(--brand-neutral-400, #94a3b8);
+    --brand-eco-old-bg: var(--brand-neutral-800, #1e293b);
+    --brand-eco-new: var(--brand-eco-operating);
+    --brand-eco-new-bg: var(--brand-eco-operating-bg);
+  }
+}

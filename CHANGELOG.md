@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-05-31
+
+### Added
+
+- **Ecosystem-narrative assets** — shared brand assets for the
+  "System of Record × Operating Intelligence" story (consumed by `marketing-site`
+  and `goodhelp.ai`; visual parity with `goodhelp-ai/ghfe#839`).
+
+  - **Ecosystem CSS tokens** (`/tokens/ecosystem-css`) — `--brand-eco-*` tokens
+    distinguishing the operating layer (GoodHelp, purple) from the systems of
+    record (TimeTrust · LMNTL GL, teal) and the approval gate (amber). Light/dark
+    via `data-theme="dark"` / `.dark` / `data-theme="system"`. Layered on top of
+    the brand palette — does not redefine any existing `--brand-*` token.
+  - **Ecosystem TypeScript token constants** (`/tokens`) — `ecosystemColors` and
+    `getEcosystemPillarColors()`.
+  - **`EcosystemStack`** component (`/components`) — the two-layer stack diagram
+    (System of Record base, GoodHelp Operating Intelligence on top, bidirectional
+    "reads truth ↑ / proposes gated actions ↓" arrows). Responsive, light/dark.
+  - **`OldWayNewWay`** component (`/components`) — the "Old way vs GoodHelp way"
+    comparison block as an accessible ARIA-table grid that collapses to stacked,
+    labelled cards on mobile (card layout, not a raw `<table>`).
+  - **`EcosystemStatusChip`** component (`/components`) — "Live today" /
+    "In private beta" maturity chips.
+  - **`EcosystemTrustBadge`** component (`/components`) — "DCAA-aligned" trust
+    badge (never "DCAA-compliant"), plus audit-ready / gated-actions variants, in
+    sm/md/lg sizes and outline/solid styles.
+  - **Operating-intelligence iconography** (`/icons/ecosystem`) — `DepartmentIcon`,
+    `ActIcon`, `ApproveGateIcon`, `SystemOfRecordIcon`, `OperatingLayerIcon`.
+  - **Ecosystem component CSS** (`/styles/ecosystem`).
+  - Static visual preview at `preview/ecosystem.html` (light + dark, responsive).
+
+### Changed
+
+- `TrustBadges` `dcaa` badge label changed from "DCAA Compliant" to "DCAA-aligned"
+  to comply with the site claim-sweep wording rule.
+
 ## [1.4.2] - 2026-03-30
 
 ### Changed
@@ -126,7 +162,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - TypeScript compilation with tsup
 - ESM module format
 
-[Unreleased]: https://github.com/LMNTL-AI/brand-system/compare/v1.4.2...HEAD
+[Unreleased]: https://github.com/LMNTL-AI/brand-system/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/LMNTL-AI/brand-system/compare/v1.4.2...v1.5.0
 [1.4.2]: https://github.com/LMNTL-AI/brand-system/compare/v1.2.0...v1.4.2
 [1.2.0]: https://github.com/LMNTL-AI/brand-system/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/LMNTL-AI/brand-system/compare/v1.0.0...v1.1.0
