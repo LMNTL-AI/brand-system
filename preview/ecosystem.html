@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ecosystem assets — @lmntl-ai/brand-system</title>
+    <!--
+      Static preview of the ecosystem-narrative assets (brand-system#14).
+      Run `npm run build` first, then open this file in a browser.
+      The markup mirrors the React components' output 1:1 so the compiled CSS
+      can be reviewed without a bundler. Toggle the theme with the button.
+    -->
+    <link rel="stylesheet" href="../dist/tokens/brand-tokens.css" />
+    <link rel="stylesheet" href="../dist/tokens/ecosystem-tokens.css" />
+    <link rel="stylesheet" href="../dist/styles/components/ecosystem.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: var(--brand-font-body, system-ui, sans-serif);
+        background: var(--brand-eco-surface-muted);
+        color: var(--brand-eco-text);
+        transition: background 200ms ease, color 200ms ease;
+      }
+      .wrap { max-width: 64rem; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+      .toolbar {
+        position: sticky; top: 0; z-index: 10;
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 1rem; padding: 1rem 1.5rem;
+        background: var(--brand-eco-surface);
+        border-bottom: 1px solid var(--brand-eco-border);
+      }
+      .toolbar h1 { font-size: 1rem; margin: 0; }
+      .toggle {
+        cursor: pointer; border: 1px solid var(--brand-eco-border);
+        background: var(--brand-eco-surface); color: var(--brand-eco-text);
+        border-radius: 9999px; padding: 0.5rem 1rem; font-size: 0.875rem;
+      }
+      section.demo { margin-top: 3rem; }
+      .demo > h3 {
+        font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+        color: var(--brand-eco-text-muted); margin: 0 0 1rem;
+      }
+      .row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    </style>
+  </head>
+  <body data-theme="light">
+    <div class="toolbar">
+      <h1>@lmntl-ai/brand-system — ecosystem assets</h1>
+      <button class="toggle" id="themeToggle" type="button">Toggle dark mode</button>
+    </div>
+
+    <div class="wrap">
+      <!-- 1. Two-layer stack diagram -->
+      <section class="demo">
+        <h3>EcosystemStack — System of Record × Operating Intelligence</h3>
+        <section class="eco-stack" aria-labelledby="d1">
+          <h2 id="d1" class="eco-stack__heading">One operating layer. Every system of record.</h2>
+          <div class="eco-stack__diagram">
+            <div class="eco-layer eco-layer--operating">
+              <div class="eco-layer__head">
+                <span class="eco-layer__icon" aria-hidden="true">▣</span>
+                <p class="eco-layer__label">GoodHelp Operating Intelligence</p>
+              </div>
+              <div class="eco-layer__items">
+                <span class="eco-chip">Departments that act</span>
+              </div>
+            </div>
+            <div class="eco-arrows">
+              <span class="eco-arrow eco-arrow--up">↑ reads truth</span>
+              <span class="eco-arrow eco-arrow--down">↓ proposes gated actions</span>
+            </div>
+            <div class="eco-layer eco-layer--sor">
+              <div class="eco-layer__head">
+                <span class="eco-layer__icon" aria-hidden="true">▤</span>
+                <p class="eco-layer__label">Systems of Record</p>
+              </div>
+              <div class="eco-layer__items">
+                <span class="eco-chip">TimeTrust</span>
+                <span class="eco-chip">LMNTL GL</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- 2. Old way vs GoodHelp way -->
+      <section class="demo">
+        <h3>OldWayNewWay — responsive comparison (resize to see cards)</h3>
+        <section class="eco-compare" aria-labelledby="d2">
+          <h2 id="d2" class="eco-compare__heading">The old way vs the GoodHelp way</h2>
+          <div class="eco-compare__grid" role="table" aria-label="comparison">
+            <div class="eco-compare__row eco-compare__row--head" role="row">
+              <div class="eco-compare__cell" role="columnheader">How work gets done</div>
+              <div class="eco-compare__cell eco-compare__head-old" role="columnheader">Old way</div>
+              <div class="eco-compare__cell eco-compare__head-new" role="columnheader">GoodHelp way</div>
+            </div>
+            <div class="eco-compare__row" role="row">
+              <div class="eco-compare__cell eco-compare__dim" role="cell">Data entry</div>
+              <div class="eco-compare__cell eco-compare__old" role="cell">Manual, duplicated across tools</div>
+              <div class="eco-compare__cell eco-compare__new" role="cell">Read once from the system of record</div>
+            </div>
+            <div class="eco-compare__row" role="row">
+              <div class="eco-compare__cell eco-compare__dim" role="cell">Decisions</div>
+              <div class="eco-compare__cell eco-compare__old" role="cell">Buried in spreadsheets</div>
+              <div class="eco-compare__cell eco-compare__new" role="cell">Surfaced by operating intelligence</div>
+            </div>
+            <div class="eco-compare__row" role="row">
+              <div class="eco-compare__cell eco-compare__dim" role="cell">Actions</div>
+              <div class="eco-compare__cell eco-compare__old" role="cell">Copy-paste between apps</div>
+              <div class="eco-compare__cell eco-compare__new" role="cell">Proposed + gated for approval</div>
+            </div>
+            <div class="eco-compare__row" role="row">
+              <div class="eco-compare__cell eco-compare__dim" role="cell">Audit trail</div>
+              <div class="eco-compare__cell eco-compare__old" role="cell">Reconstructed after the fact</div>
+              <div class="eco-compare__cell eco-compare__new" role="cell">Captured as work happens</div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- 3. Status chips -->
+      <section class="demo">
+        <h3>EcosystemStatusChip</h3>
+        <div class="row">
+          <span class="eco-status-chip eco-status-chip--live"><span class="eco-status-chip__dot"></span>Live today</span>
+          <span class="eco-status-chip eco-status-chip--beta"><span class="eco-status-chip__dot"></span>In private beta</span>
+        </div>
+      </section>
+
+      <!-- 4. Trust badges (DCAA-aligned) -->
+      <section class="demo">
+        <h3>EcosystemTrustBadge — "DCAA-aligned" (never "DCAA-compliant")</h3>
+        <div class="row">
+          <span class="eco-trust-badge eco-trust-badge--md">
+            <span class="eco-trust-badge__icon" aria-hidden="true">◷</span>
+            <span class="eco-trust-badge__text">
+              <span class="eco-trust-badge__label">DCAA-aligned</span>
+              <span class="eco-trust-badge__sub">Timekeeping built to the standard</span>
+            </span>
+          </span>
+          <span class="eco-trust-badge eco-trust-badge--md eco-trust-badge--solid">
+            <span class="eco-trust-badge__icon" aria-hidden="true">◷</span>
+            <span class="eco-trust-badge__text">
+              <span class="eco-trust-badge__label">DCAA-aligned</span>
+              <span class="eco-trust-badge__sub">Solid variant</span>
+            </span>
+          </span>
+          <span class="eco-trust-badge eco-trust-badge--sm">
+            <span class="eco-trust-badge__icon" aria-hidden="true">⛉</span>
+            <span class="eco-trust-badge__text">
+              <span class="eco-trust-badge__label">Gated actions</span>
+            </span>
+          </span>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const body = document.body;
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+      });
+    </script>
+  </body>
+</html>

@@ -18,7 +18,7 @@ export interface TrustBadgesProps {
 }
 
 const badgeConfig: Record<TrustBadgeType, { label: string; icon: string }> = {
-  dcaa: { label: 'DCAA Compliant', icon: '✓' },
+  dcaa: { label: 'DCAA-aligned', icon: '✓' },
   quickbooks: { label: 'QuickBooks Sync', icon: '⟲' },
   secure: { label: 'Bank-Level Security', icon: '🔒' },
   support: { label: '24/7 Support', icon: '💬' },
