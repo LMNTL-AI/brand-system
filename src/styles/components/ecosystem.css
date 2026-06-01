@@ -219,7 +219,7 @@
     border: none;
   }
 
-  .eco-compare__row--head {
+  .eco-compare__grid .eco-compare__row--head {
     display: none;
   }
 
