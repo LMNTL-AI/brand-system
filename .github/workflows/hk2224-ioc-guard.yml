@@ -1,0 +1,90 @@
+name: HK-2224 IOC Guard
+# Rejects reintroduction of the roxrook (HK-2224) backdoor across all four observed vectors:
+#   A1  obfuscated require-hijack loader tokens (config/source files)
+#   A2  eval-fetch RCE  (atob(process.env.<X>) ... eval(proxyInfo))   <- the brand-system class
+#   B   .gitignore tamper: the 'config.bat' ignore entry (WS3-confirmed attacker IOC)
+#   C   on-chain / vercel C2 dead-drop strings
+# The job SELF-TESTS its own patterns first (positives MUST match, negatives MUST NOT) so a
+# broken regex fails loud instead of silently passing. See HK-2225: a double-escaped pattern
+# once produced a silent false-negative, and a bare eval token false-positived on Ruby class_eval.
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  ioc-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4 (SHA-pinned)
+      - name: HK-2224 IOC guard (A1+A2+B+C, self-testing)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # --- signature patterns (POSIX ERE) ---
+          A1='_\$_1e42|_\$af163278|_\$_ccfc|_\$_bfdd|global\[.!.\]=|global\[._V.\]|global\[._p_t.\]|global\[.r.\]=require'
+          A2='atob\(process\.env\.|eval\(proxyInfo\)'
+          C2='auth-confirm-ebon|api\.trongrid\.io|fullnode\.mainnet\.aptoslabs|aHR0cHM6Ly9hdXRoLWNvbmZpcm0'
+          PAYLOAD="$A1|$A2|$C2"
+          GITIGNORE_B='^config\.bat[[:space:]]*$'   # whole-line ignore entry (CRLF tolerant)
+
+          fail_selftest() { echo "::error::IOC guard SELF-TEST FAILED: $1"; exit 1; }
+
+          # positive controls — each MUST match PAYLOAD
+          pos=(
+            'var x=_$_1e42;'
+            "global['!']='9-0558-4'"
+            "global['r']=require;global['m']=module;"
+            'const s=atob(process.env.AUTH_API_KEY);'
+            'eval(proxyInfo);'
+            'k=https://auth-confirm-ebon.vercel.app/api'
+            'u=api.trongrid.io/wallet'
+            'b=aHR0cHM6Ly9hdXRoLWNvbmZpcm0='
+          )
+          for p in "${pos[@]}"; do
+            printf '%s\n' "$p" | grep -qE "$PAYLOAD" || fail_selftest "positive not matched: $p"
+          done
+
+          # negative controls — must NOT match PAYLOAD (clean look-alikes from this estate)
+          neg=(
+            'User.class_eval do'
+            'obj.instance_eval { 1 }'
+            'const a = config.batchSize;'
+            'batchId = config.batch();'
+            'module.exports = { plugins: { tailwindcss: {} } };'
+            'const y = atob("c3RhdGlj");'
+            'eval(userProvidedExpr);'
+          )
+          for n in "${neg[@]}"; do
+            if printf '%s\n' "$n" | grep -qE "$PAYLOAD"; then fail_selftest "negative wrongly matched: $n"; fi
+          done
+
+          # vector-B controls
+          printf 'config.bat\n'      | grep -qE "$GITIGNORE_B" || fail_selftest "B positive not matched"
+          if printf 'config.batchSize\n' | grep -qE "$GITIGNORE_B"; then fail_selftest "B FP on config.batchSize"; fi
+          echo "Self-test passed (8 positive, 7 negative, B pos+neg)."
+
+          # --- scan the checked-out tree ---
+          hits=0
+          PAYLOAD_HITS=$(grep -rIlE "$PAYLOAD" . \
+            --exclude-dir=.git --exclude-dir=node_modules \
+            --exclude=hk2224-ioc-guard.yml 2>/dev/null || true)
+          if [ -n "$PAYLOAD_HITS" ]; then
+            echo "::error::HK-2224 loader/C2 signature (A1/A2/C) detected:"
+            echo "$PAYLOAD_HITS"
+            hits=1
+          fi
+
+          # vector B: any .gitignore carrying the 'config.bat' ignore entry
+          while IFS= read -r gi; do
+            [ -n "$gi" ] || continue
+            if grep -qE "$GITIGNORE_B" "$gi"; then
+              echo "::error::HK-2224 vector-B .gitignore tamper (config.bat entry): $gi"
+              hits=1
+            fi
+          done < <(find . -path ./.git -prune -o -path ./node_modules -prune -o -name .gitignore -print 2>/dev/null)
+
+          if [ "$hits" -ne 0 ]; then
+            echo "::error::HK-2224 IOC guard FAILED — backdoor signature present (see annotations)."
+            exit 1
+          fi
+          echo "HK-2224 IOC guard clean — no A1/A2/B/C signatures."
